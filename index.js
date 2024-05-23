@@ -35,47 +35,48 @@ const resolvers = {
             return db.maps.find((map) => map.id === args.id)
         },
     },
-    // Game: {
-    //     reviews(parent) {
-    //         return db.reviews.filter((r) => r.game_id === parent.id);
-    //     },
-    // },
-    // Author: {
-    //     reviews(parent) {
-    //         return db.reviews.filter((r) => r.author_id === parent.id);
-    //     },
-    // },
-    // Review: {
-    //     author(parent) {
-    //         return db.authors.find((a) => a.id === parent.author_id);
-    //     },
-    //     game(parent) {
-    //         return db.games.find((g) => g.id === parent.game_id);
-    //     },
-    // },
-    // Mutation: {
-    //     deleteGame(_, args) {
-    //         db.games = db.games.filter((g) => g.id !== args.id);
-    //         return db.games;
-    //     },
-    //     addGame(_, args) {
-    //         let game = {
-    //             ...args.game,
-    //             id: Math.floor(Math.random() * 10000).toString(),
-    //         };
-    //         db.games.push(game);
-    //         return game;
-    //     },
-    //     updateGame(_, args) {
-    //         db.games = db.games.map((g) => {
-    //             if (g.id === args.id) {
-    //                 return { ...g, ...args.edits };
-    //             }
-    //             return g;
-    //         });
-    //         return db.games.find((g) => g.id === args.id);
-    //     },
-    // },
+    Team: {
+        players(parent) {
+            return db.players.filter((team) => team.team_id === parent.id)
+        }
+    },
+    Player: {
+        team(parent) {
+            return db.teams.find((player) => player.id === parent.team_id)
+        },
+        agent(parent) {
+            return db.agents.find((player) => player.id === parent.agent_id)
+        }
+    },
+    Agent: {
+        players(parent) {
+            return db.agents.filter((agent) => agent.agent_id === parent.id)
+        }
+    },
+
+    Mutation: {
+        deleteTeam(_, args) {
+            db.teams = db.teams.filter((team) => team.id !== args.id);
+            return db.teams;
+        },
+        addTeam(_, args) {
+            let team = {
+                ...args.team,
+                id: Math.floor(Math.random() * 10000).toString(),
+            };
+            db.teams.push(team);
+            return team;
+        },
+        updateTeam(_, args) {
+            db.teams = db.teams.map((team) => {
+                if (team.id === args.id) {
+                    return { ...team, ...args.edits };
+                }
+                return team;
+            });
+            return db.teams.find((team) => team.id === args.id);
+        },
+    },
 };
 
 // Create an ApolloServer instance

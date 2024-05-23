@@ -11,14 +11,15 @@ export const typeDefs = `#graphql
     type Player {
         id: ID!,
         player_name: String!,
-        team: String!,
-        main_agent: String!
+        team: Team!,
+        agent: Agent!
     }
     
     type Agent {
         id: ID!,
         agent_name: String!,
         role: String!
+        players: [Player!]
     }
 
     type Map {
@@ -38,19 +39,21 @@ export const typeDefs = `#graphql
         map (id: ID!): Map
     }
     
-    # type Mutation {
-    #     addGame(game: AddGameInput!): Game,
-    #     deleteGame(id: ID!): [Game],
-    #     updateGame(id: ID!, edits: EditGameInput!): Game
-    # }
+    type Mutation {
+        addTeam(team: AddTeamInput!): Team,
+        deleteTeam(id: ID!): [Team],
+        updateTeam(id: ID!, edits: EditTeamInput!): Team
+    }
     
-    # input AddGameInput {
-    #     title: String!,
-    #     platform: [String!]!
-    # }
+    input AddTeamInput {
+        team_name: String!,
+        region: String!,
+        signature_maps: [String!]!
+    }
     
-    # input EditGameInput {
-    #     title: String,
-    #     platform: [String!]
-    # }
+    input EditTeamInput {
+        team_name: String!,
+        region: String!,
+        signature_maps: [String!]!
+    }
 `
