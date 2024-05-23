@@ -35,6 +35,16 @@ const resolvers = {
             return db.maps.find((map) => map.id === args.id)
         },
     },
+    Team: {
+        players(parent) {
+            return db.players.filter((player) => player.id === parent.id)
+        }
+    },
+    Player: {
+        team(parent) {
+            return db.teams.find((team) => team.id === parent.id)
+        }
+    }
     // Game: {
     //     reviews(parent) {
     //         return db.reviews.filter((r) => r.game_id === parent.id);
