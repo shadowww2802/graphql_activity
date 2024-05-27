@@ -55,6 +55,7 @@ const resolvers = {
     },
 
     Mutation: {
+        //TEAM
         deleteTeam(_, args) {
             db.teams = db.teams.filter((team) => team.id !== args.id);
             return db.teams;
@@ -75,7 +76,62 @@ const resolvers = {
                 return team;
             });
             return db.teams.find((team) => team.id === args.id);
+              
+            //   "edits": {
+            //     "team_name": "Jifri",
+            //     "region": "Test",
+            //     "signature_maps": ["Test"]
+            //  },
+            //  "id": "1"
+            // }
         },
+
+        //MAP
+        deleteMap(_, args) {
+            db.maps = db.maps.filter((map) => map.id !== args.id);
+            return db.maps;
+        },
+        addMap(_, args) {
+            let map = {
+                ...args.map,
+                id: Math.floor(Math.random() * 10000).toString(),
+            };
+            db.maps.push(map);
+            return map;
+        },
+        updateMap(_, args) {
+            db.maps = db.maps.map((map) => {
+                if (map.id === args.id) {
+                    return { ...map, ...args.edits };
+                }
+                return map;
+            });
+            return db.maps.find((map) => map.id === args.id);
+        },
+
+        //AGENT
+        deleteAgent(_, args) {
+            db.agents = db.agents.filter((agent) => agent.id !== args.id);
+            return db.agents;
+        },
+        addAgent(_, args) {
+            let agent = {
+                ...args.agent,
+                id: Math.floor(Math.random() * 10000).toString(),
+            };
+            db.agents.push(agent);
+            return agent;
+        },
+        updateAgent(_, args) {
+            db.agents = db.agents.map((agent) => {
+                if (agent.id === args.id) {
+                    return { ...agent, ...args.edits };
+                }
+                return agent;
+            });
+            return db.agents.find((agent) => agent.id === args.id);
+        },
+
     },
 };
 
