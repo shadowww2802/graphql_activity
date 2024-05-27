@@ -43,8 +43,17 @@ export const typeDefs = `#graphql
         addTeam(team: AddTeamInput!): Team,
         deleteTeam(id: ID!): [Team],
         updateTeam(id: ID!, edits: EditTeamInput!): Team
+
+        addMap(map: AddMapInput!): Map,
+        deleteMap(id: ID!): [Map],
+        updateMap(id: ID!, edits: EditMapInput!): Map
+
+        addAgent(agent: AddAgentInput!): Agent,
+        deleteAgent(id: ID!): [Agent],
+        updateAgent(id: ID!, edits: EditAgentInput!): Agent
     }
     
+    ###Team
     input AddTeamInput {
         team_name: String!,
         region: String!,
@@ -55,5 +64,31 @@ export const typeDefs = `#graphql
         team_name: String!,
         region: String!,
         signature_maps: [String!]!
+    }
+
+
+    ###Map
+    input AddMapInput {
+        map_name: String!,
+        location: String!
+    }
+    
+    input EditMapInput {
+        id: ID!
+        map_name: String!,
+        location: String!
+    }
+
+
+    ###Agent
+    input AddAgentInput {
+        agent_name: String!,
+        role: String!
+    }
+    
+    input EditAgentInput {
+        id: ID!
+        agent_name: String!,
+        role: String!
     }
 `
